@@ -18,7 +18,7 @@ extension Target {
             bundleId: ProjectConstants.appBundleIdentifier,
             hasResources: true,
             hasHeaders: false,
-            hasEntitlements: false,
+            hasEntitlements: true,
             scripts: [.tuistLint()],
             dependencies: [
                 .target(name: ProjectConstants.kitTargetName),
@@ -36,9 +36,10 @@ extension Target {
             bundleId: ProjectConstants.widgetBundleIdentifier,
             hasResources: false,
             hasHeaders: false,
-            hasEntitlements: false,
+            hasEntitlements: true,
             scripts: [.tuistLint()],
             dependencies: [
+                .target(name: ProjectConstants.kitTargetName),
                 .sdk(name: "SwiftUI.framework", status: .required),
                 .sdk(name: "WidgetKit.framework", status: .required),
             ],
@@ -52,7 +53,7 @@ extension Target {
             product: .framework,
             bundleId: ProjectConstants.kitBundleIdentifier,
             hasResources: false,
-            hasHeaders: false,
+            hasHeaders: true,
             hasEntitlements: false,
             scripts: [.tuistLint(), .fixSPM()],
             dependencies: [],
@@ -66,10 +67,12 @@ extension Target {
             product: .framework,
             bundleId: ProjectConstants.uiBundleIdentifier,
             hasResources: true,
-            hasHeaders: false,
+            hasHeaders: true,
             hasEntitlements: false,
             scripts: [.tuistLint()],
-            dependencies: [],
+            dependencies: [
+                .target(name: ProjectConstants.kitTargetName)
+            ],
             settings: .appSettings()
         )
     }

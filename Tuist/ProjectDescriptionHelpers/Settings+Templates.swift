@@ -47,9 +47,9 @@ extension Settings {
 
     private static func makeSettings(
         base baseSettings: SettingsDictionary = SettingsDictionary(),
-        debug debugSettings: SettingsDictionary,
-        beta betaSettings: SettingsDictionary,
-        release releaseSettings: SettingsDictionary
+        debug debugSettings: SettingsDictionary = SettingsDictionary(),
+        beta betaSettings: SettingsDictionary = SettingsDictionary(),
+        release releaseSettings: SettingsDictionary = SettingsDictionary()
     ) -> Settings {
         let debugConfiguration = Configuration.debug(name: .debug, settings: debugSettings)
         let betaConfiguration = Configuration.release(name: .beta, settings: betaSettings)
@@ -136,16 +136,8 @@ extension Settings {
         let baseSettings = SettingsDictionary()
             .currentProjectVersion(ProjectConstants.currentProjectVersion)
             .currentLibraryVersion(ProjectConstants.currentProjectVersion)
-        let debugSettings = SettingsDictionary()
-            .codeSignIdentityAppleDevelopment()
-        let betaAndReleaseSettings = SettingsDictionary()
-            .sign
-        return .makeSettings(
-            base: baseSettings,
-            debug: debugSettings,
-            beta: betaAndReleaseSettings,
-            release: betaAndReleaseSettings
-        )
+            .automaticCodeSigning(devTeam: ProjectConstants.developmentTeam)
+        return .makeSettings(base: baseSettings)
     }
 }
 
