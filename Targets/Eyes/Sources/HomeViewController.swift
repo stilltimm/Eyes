@@ -18,9 +18,11 @@ public final class HomeViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
-        label.font = EyesUIFontFamily.AkzidenzGroteskBQ.boldExtended.font(size: 48)
+        label.font = EyesUIFontFamily.AkzidenzGroteskBQ.boldExtended.font(
+            size: sizeClassAdaptive(compact: 36, medium: 44)
+        )
         label.textColor = Colors.foregroundMain
-        label.text = "eyes"
+        label.text = "weyedget"
         return label
     }()
     private let subtitleLabel: UILabel = {
@@ -38,7 +40,9 @@ public final class HomeViewController: UIViewController {
         let attributedText = NSAttributedString(
             string: text,
             attributes: [
-                .font: EyesUIFontFamily.AkzidenzGroteskBQ.lightExtended.font(size: 32),
+                .font: EyesUIFontFamily.AkzidenzGroteskBQ.lightExtended.font(
+                    size: sizeClassAdaptive(compact: 24, medium: 32)
+                ),
                 .foregroundColor: Colors.foregroundMain.withAlphaComponent(0.5),
                 .paragraphStyle: paragraphStyle
             ]
