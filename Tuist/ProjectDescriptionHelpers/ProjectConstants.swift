@@ -13,7 +13,7 @@ public enum ProjectConstants {
 
     public static let developmentTeam: String = "PL6N9LRHKL"
     public static let organizationName: String = "com.timofeysurkov"
-    public static let projectName: String = "Eyes"
+    public static let projectName: String = "weyedget"
     public static let currentProjectVersion: String = "1"
 
     // MARK: - App Target
