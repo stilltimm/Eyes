@@ -38,8 +38,8 @@ class EyeWidgetTimelineProvider: TimelineProvider {
         var entries: [Entry] = [entry]
 
         let timelineReloadPolicy: TimelineReloadPolicy
-        for i in 1..<(Constants.updatesCount) {
-            guard let entryDate = Calendar.current.date(
+        for i in 1...(Constants.updatesCount - 1) {
+            guard let entryDate = Calendar.autoupdatingCurrent.date(
                 byAdding: .second,
                 value: i * Constants.updatesInterval,
                 to: currentDate
@@ -53,9 +53,9 @@ class EyeWidgetTimelineProvider: TimelineProvider {
         }
 
         if
-            let timelineEndDate = Calendar.current.date(
+            let timelineEndDate = Calendar.autoupdatingCurrent.date(
                 byAdding: .second,
-                value: (Constants.updatesCount + 1) * Constants.updatesInterval,
+                value: (Constants.updatesCount) * Constants.updatesInterval,
                 to: currentDate
             )
         {
@@ -71,6 +71,6 @@ class EyeWidgetTimelineProvider: TimelineProvider {
 
 private enum Constants {
 
-    static let updatesInterval: Int = 5
-    static let updatesCount: Int = 6
+    static let updatesInterval: Int = 30
+    static let updatesCount: Int = 120
 }
