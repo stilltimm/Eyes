@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EyesKit
 
 final class DeviceView: UIView {
 
@@ -46,19 +47,9 @@ final class DeviceView: UIView {
         }
     }
 
-    func resetEyeballsTransform() {
-        leftEyeView.resetEyeballTransform()
-        rightEyeView.resetEyeballTransform()
-    }
-
-    func setEyeballsTransform(
-        x: CGFloat,
-        y: CGFloat,
-        rotationAngle: CGFloat,
-        scale: CGFloat
-    ) {
-        leftEyeView.setEyeballTransform(x: x, y: y, rotationAngle: rotationAngle, scale: scale)
-        rightEyeView.setEyeballTransform(x: x, y: y, rotationAngle: rotationAngle, scale: scale)
+    func setEyeballsTransform(transformInfo: TransformInfo) {
+        leftEyeView.setEyeballTransform(transformInfo: transformInfo)
+        rightEyeView.setEyeballTransform(transformInfo: transformInfo)
     }
 
     // MARK: - Private Instance Methods

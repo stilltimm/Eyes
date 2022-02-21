@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EyesKit
 
 public final class HomeViewController: UIViewController {
 
@@ -62,6 +63,10 @@ public final class HomeViewController: UIViewController {
     }()
     private let deviceView = DeviceView()
     private let gradientOverlayView = LinearGradientView(gradient: .overlay)
+
+    // MARK: - Private Instance Properties
+
+    private let transformInfoFactory: TransformInfoFactory = .default()
 
     // MARK: - Instance Methods
 
@@ -136,11 +141,13 @@ public final class HomeViewController: UIViewController {
         Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
             guard let self = self else { return }
 
-            let shouldReset: Bool = counter >= 5
-            if shouldReset {
+            let transformInfo: TransformInfo
+            if counter >= 5 {
                 counter = 0
+                transformInfo = .identity
             } else {
                 counter += 1
+                transformInfo = self.transformInfoFactory.makeRandomTransformInfo()
             }
 
             UIView.animate(
@@ -150,20 +157,7 @@ public final class HomeViewController: UIViewController {
                 initialSpringVelocity: 0,
                 options: []
             ) {
-                if shouldReset {
-                    self.deviceView.resetEyeballsTransform()
-                } else {
-                    let x: CGFloat = CGFloat(arc4random_uniform(200)) / 100.0 - 1.0
-                    let y: CGFloat = CGFloat(arc4random_uniform(200)) / 100.0 - 1.0
-                    let rotationAngle: CGFloat = -1.0 + CGFloat(arc4random_uniform(2000)) / 1000.0
-                    let scale: CGFloat = 0.5 + CGFloat(arc4random_uniform(1000)) / 1000.0
-                    self.deviceView.setEyeballsTransform(
-                        x: x,
-                        y: y,
-                        rotationAngle: rotationAngle,
-                        scale: scale
-                    )
-                }
+                self.deviceView.setEyeballsTransform(transformInfo: transformInfo)
             }
         }
     }

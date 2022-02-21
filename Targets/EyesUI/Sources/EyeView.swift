@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EyesKit
 
 final class EyeView: UIView {
 
@@ -40,25 +41,14 @@ final class EyeView: UIView {
         self.layer.borderColor = Colors.foregroundMain.cgColor
     }
 
-    func resetEyeballTransform() {
-        self.eyeballView.transform = .identity
-    }
-
-    func setEyeballTransform(
-        x: CGFloat,
-        y: CGFloat,
-        rotationAngle: CGFloat,
-        scale: CGFloat
-    ) {
-        let clampedX: CGFloat = min(1, max(-1, x))
-        let clampedY: CGFloat = min(1, max(-1, y))
+    func setEyeballTransform(transformInfo: TransformInfo) {
         eyeballView.transform = CGAffineTransform(
-            translationX: clampedX * bounds.width / 2,
-            y: clampedY * bounds.height / 2
+            translationX: transformInfo.x * bounds.width / 2,
+            y: transformInfo.y * bounds.height / 2
         ).concatenating(
-            CGAffineTransform(rotationAngle: rotationAngle)
+            CGAffineTransform(rotationAngle: transformInfo.rotationAngle)
         ).concatenating(
-            CGAffineTransform(scaleX: scale, y: scale)
+            CGAffineTransform(scaleX: transformInfo.scale, y: transformInfo.scale)
         )
     }
 
@@ -80,7 +70,7 @@ final class EyeView: UIView {
         NSLayoutConstraint.activate([
             eyeballView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             eyeballView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            eyeballView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.0/1.618),
+            eyeballView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: GoldenRatio.inversedCGFloatValue),
             eyeballView.heightAnchor.constraint(equalTo: eyeballView.widthAnchor)
         ])
     }

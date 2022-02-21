@@ -57,7 +57,7 @@ extension Target {
             hasEntitlements: false,
             scripts: [.tuistLint(), .fixSPM()],
             dependencies: [],
-            settings: .appSettings()
+            settings: .anyFrameworkSettings(onlyAllowAppExtensionAPI: true)
         )
     }
 
@@ -73,7 +73,7 @@ extension Target {
             dependencies: [
                 .target(name: ProjectConstants.kitTargetName)
             ],
-            settings: .appSettings()
+            settings: .anyFrameworkSettings(onlyAllowAppExtensionAPI: false)
         )
     }
 

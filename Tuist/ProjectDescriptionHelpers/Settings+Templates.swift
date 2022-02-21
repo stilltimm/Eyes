@@ -39,6 +39,12 @@ extension SettingsDictionary {
         result["GENERATE_INFOPLIST_FILE"] = generate ? .string("YES") : .string("NO")
         return result
     }
+
+    func onlyAllowAppExtensionAPI(_ allow: Bool) -> SettingsDictionary {
+        var result = self
+        result["APPLICATION_EXTENSION_API_ONLY"] = allow ? .string("YES") : .string("NO")
+        return result
+    }
 }
 
 extension Settings {
@@ -132,11 +138,12 @@ extension Settings {
         )
     }
 
-    public static func anyFrameworkSettings() -> Settings {
+    public static func anyFrameworkSettings(onlyAllowAppExtensionAPI: Bool) -> Settings {
         let baseSettings = SettingsDictionary()
             .currentProjectVersion(ProjectConstants.currentProjectVersion)
             .currentLibraryVersion(ProjectConstants.currentProjectVersion)
             .automaticCodeSigning(devTeam: ProjectConstants.developmentTeam)
+            .onlyAllowAppExtensionAPI(onlyAllowAppExtensionAPI)
         return .makeSettings(base: baseSettings)
     }
 }
