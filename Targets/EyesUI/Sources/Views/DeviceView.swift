@@ -9,7 +9,7 @@
 import UIKit
 import EyesKit
 
-final class DeviceView: UIView {
+public final class DeviceView: UIView {
 
     // MARK: - Subviews
 
@@ -19,14 +19,15 @@ final class DeviceView: UIView {
 
     // MARK: - Internal Instance Properties
 
-    var eyesBottomAnchor: NSLayoutYAxisAnchor { leftEyeView.bottomAnchor }
+    public var eyesBottomAnchor: NSLayoutYAxisAnchor { leftEyeView.bottomAnchor }
 
     // MARK: - Initializers
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
 
         setupLayout()
+        setupMotionEffects()
     }
 
     @available(*, unavailable)
@@ -36,7 +37,7 @@ final class DeviceView: UIView {
 
     // MARK: - Internal Instance Methods
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
         guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
@@ -47,7 +48,7 @@ final class DeviceView: UIView {
         }
     }
 
-    func setEyeballsTransform(transformInfo: TransformInfo) {
+    public func setEyeballsTransform(transformInfo: TransformInfo) {
         leftEyeView.setEyeballTransform(transformInfo: transformInfo)
         rightEyeView.setEyeballTransform(transformInfo: transformInfo)
     }
@@ -140,6 +141,16 @@ final class DeviceView: UIView {
         view.layer.cornerRadius = 12
         view.layer.cornerCurve = .continuous
         return view
+    }
+
+    private func setupMotionEffects() {
+        UIView.addInterpolatingMotionEffects(
+            interpolatingEffectContexts: [
+                MotionEffects.verticalTiltTransformY(),
+                MotionEffects.horizontalTiltTransformX()
+            ],
+            to: [leftEyeView, rightEyeView]
+        )
     }
 }
 

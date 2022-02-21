@@ -27,9 +27,9 @@ public enum Colors {
 
 extension UIColor {
 
-    // MARK: - Internal Type Methods
+    // MARK: - Public Type Methods
 
-    static func dynamic(light: UIColor, dark: UIColor) -> UIColor {
+    public static func dynamic(light: UIColor, dark: UIColor) -> UIColor {
         return UIColor { traitCollection -> UIColor in
             switch traitCollection.userInterfaceStyle {
             case .light:

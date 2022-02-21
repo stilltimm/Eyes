@@ -8,19 +8,34 @@
 
 import UIKit
 
-final class LinearGradientView: UIView {
+public final class LinearGradientView: UIView {
 
     // MARK: - Nested Types
 
-    struct Gradient {
-        let direction: CGPoint
-        let locations: [Float]
-        let colors: [UIColor]
+    public struct Gradient {
+
+        // MARK: - Instance Properties
+
+        public let direction: CGPoint
+        public let locations: [Float]
+        public let colors: [UIColor]
+
+        // MARK: - Initializers
+
+        public init(
+            direction: CGPoint,
+            locations: [Float],
+            colors: [UIColor]
+        ) {
+            self.direction = direction
+            self.locations = locations
+            self.colors = colors
+        }
     }
 
     // MARK: - Internal Type Properties
 
-    override class var layerClass: AnyClass { CAGradientLayer.self }
+    public override class var layerClass: AnyClass { CAGradientLayer.self }
 
     // MARK: - Private Instance Properties
 
@@ -30,7 +45,7 @@ final class LinearGradientView: UIView {
 
     // MARK: - Initializers
 
-    init(gradient: Gradient?) {
+    public init(gradient: Gradient?) {
         super.init(frame: .zero)
 
         setupView()
@@ -44,7 +59,7 @@ final class LinearGradientView: UIView {
 
     // MARK: - Internal Instance Methods
 
-    func apply(gradient: Gradient?) {
+    public func apply(gradient: Gradient?) {
         guard let gradientLayer = gradientLayer else { return }
 
         self.gradient = gradient
@@ -61,7 +76,7 @@ final class LinearGradientView: UIView {
         }
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
         guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }

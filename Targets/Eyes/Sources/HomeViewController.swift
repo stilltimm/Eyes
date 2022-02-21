@@ -8,6 +8,7 @@
 
 import UIKit
 import EyesKit
+import EyesUI
 
 public final class HomeViewController: UIViewController {
 
@@ -38,7 +39,7 @@ public final class HomeViewController: UIViewController {
             string: text,
             attributes: [
                 .font: EyesUIFontFamily.AkzidenzGroteskBQ.lightExtended.font(size: 32),
-                .foregroundColor: Colors.foregroundMain,
+                .foregroundColor: Colors.foregroundMain.withAlphaComponent(0.5),
                 .paragraphStyle: paragraphStyle
             ]
         )
@@ -74,6 +75,7 @@ public final class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         setupLayout()
+        setupMotionEffects()
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -134,6 +136,22 @@ public final class HomeViewController: UIViewController {
             gradientOverlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             gradientOverlayView.topAnchor.constraint(equalTo: deviceView.eyesBottomAnchor)
         ])
+    }
+
+    private func setupMotionEffects() {
+        UIView.addInterpolatingMotionEffects(
+            interpolatingEffectContexts: [
+                MotionEffects.verticalTiltTransformY(),
+                MotionEffects.horizontalTiltTransformX()
+            ],
+            to: [titleLabel, infoButton]
+        )
+        subtitleLabel.addInterpolatingMotionEffects(
+            interpolatingEffectContexts: [
+                MotionEffects.verticalTiltTransformY(inverted: true),
+                MotionEffects.horizontalTiltTransformX(inverted: true)
+            ]
+        )
     }
 
     private func setupBusinessLogic() {

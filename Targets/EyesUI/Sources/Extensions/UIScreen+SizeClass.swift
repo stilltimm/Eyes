@@ -13,6 +13,7 @@ extension UIScreen {
     // MARK: - Nested Types
 
     enum SizeClass: UInt8 {
+
         case compact
         case medium
         case wide
@@ -31,7 +32,7 @@ extension UIScreen {
     }
 }
 
-func sizeClassAdaptive<T>(
+public func sizeClassAdaptive<T>(
     compact: T,
     medium: T,
     wide: T? = nil
