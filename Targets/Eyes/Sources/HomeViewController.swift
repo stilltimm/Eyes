@@ -28,10 +28,10 @@ public final class HomeViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         let text = """
-        get concious
-        be kind
-        see beauty
-        enjoy life
+        give your
+        lovely iPhone
+        the sight
+        it deserves
         """
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.1
